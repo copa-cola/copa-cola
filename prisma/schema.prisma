@@ -3,7 +3,7 @@
 
 generator client {
   provider        = "prisma-client-js"
-  previewFeatures = ["referentialIntegrity"]
+  previewFeatures = ["referentialIntegrity", "orderByNulls"]
 }
 
 datasource db {
@@ -50,6 +50,8 @@ model User {
   inventory      Inventory[]
   balance        Int         @default(0)
   loyaltyBalance Int         @default(0)
+  tradesBuyer    Trade[]     @relation("Trade_buyerUser")
+  tradesSeller   Trade[]     @relation("Trade_sellerUser")
 
   // Begin NEXT AUTH
   image         String?
@@ -72,9 +74,11 @@ model Item {
   number      Int?
   country     Country?    @relation(fields: [countryId], references: [id])
 
-  createdAt DateTime    @default(now())
-  updatedAt DateTime    @updatedAt
-  StoreItem StoreItem[]
+  createdAt          DateTime             @default(now())
+  updatedAt          DateTime             @updatedAt
+  StoreItem          StoreItem[]
+  ItemsOfferInTrades ItemsOfferInTrades[]
+  ItemsWantsInTrades ItemsWantsInTrades[]
 }
 
 model Inventory {
@@ -115,4 +119,38 @@ enum ItemType {
 enum Rarity {
   COMMON
   LEGENDARY
+}
+
+model ItemsOfferInTrades {
+  item     Item   @relation(fields: [itemId], references: [id])
+  itemId   String
+  tradeId  String
+  quantity Int    @default(1)
+  Trade    Trade  @relation(fields: [tradeId], references: [id])
+
+  @@id([itemId, tradeId])
+}
+
+model ItemsWantsInTrades {
+  item     Item   @relation(fields: [itemId], references: [id])
+  itemId   String
+  tradeId  String
+  quantity Int    @default(1)
+  Trade    Trade  @relation(fields: [tradeId], references: [id])
+
+  @@id([itemId, tradeId])
+}
+
+model Trade {
+  id String @id @default(uuid())
+
+  buyer      User?                @relation("Trade_buyerUser", fields: [buyerId], references: [id])
+  seller     User                 @relation("Trade_sellerUser", fields: [sellerId], references: [id])
+  itemsOffer ItemsOfferInTrades[]
+  itemsWants ItemsWantsInTrades[]
+  buyerId    String?
+  sellerId   String
+
+  createdAt DateTime  @default(now())
+  closedAt  DateTime?
 }

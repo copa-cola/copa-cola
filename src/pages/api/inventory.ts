@@ -28,6 +28,13 @@ export const getUserInventory = async ({ user: staleUser, include, where = {} }:
 			...where
 		},
 		include,
+		orderBy: {
+			item: {
+				number: {
+					sort: 'asc', nulls: 'first'
+				}
+			}
+		}
 	})
 
 	return inventory

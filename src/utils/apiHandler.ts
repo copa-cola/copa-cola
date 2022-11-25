@@ -17,6 +17,8 @@ export const apiHandler = (
 		try {
 			if (!ensureAuthenticated) {
 				await handler(req, res)
+
+				return
 			}
 
 			const session = await getSession({ req })

@@ -1,6 +1,5 @@
 import { Country, Rarity, User } from '@prisma/client'
 import { prisma } from '../../lib/prismadb'
-import ApiError from '../../utils/ApiError'
 import { apiHandler } from '../../utils/apiHandler'
 import { getUserInventory } from './inventory'
 
@@ -76,7 +75,7 @@ export const getAlbum = async ({ user: staleUser }: GetAlbumProps) => {
 }
 
 export default apiHandler(async (req, res) => {
-  const album = getAlbum({
+  const album = await getAlbum({
 		user: req.user ?? '',
   })
 

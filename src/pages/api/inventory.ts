@@ -24,8 +24,12 @@ export const getUserInventory = async ({ user: staleUser }: BuyItemProps) => {
       userId: user.id
     },
     include: {
-      item: true
-    }
+      item: {
+				include: {
+					country: true
+				}
+			}
+    },
   })
 
   return inventory

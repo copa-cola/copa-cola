@@ -43,12 +43,13 @@ model Session {
 // End NEXT AUTH
 
 model User {
-  id        String      @id @default(uuid())
-  email     String      @unique
+  id             String      @id @default(uuid())
+  email          String      @unique
   // password String?  // ! Only Google Auth for MVP
   // isGoogle Boolean @default(false)
-  inventory Inventory[]
-  balance   Int         @default(0)
+  inventory      Inventory[]
+  balance        Int         @default(0)
+  loyaltyBalance Int         @default(0)
 
   // Begin NEXT AUTH
   image         String?

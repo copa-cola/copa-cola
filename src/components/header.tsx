@@ -38,7 +38,10 @@ export function Header({ balance }: Props) {
 							</Link>
 						</li>
 						<li>
-							<Link href="/checkout" className="hover:text-[#98C776] transition-colors py-3.5 px-5">
+							<Link
+								href="/checkout"
+								className="hover:text-[#98C776] transition-colors py-3.5 px-5"
+							>
 								Comprar
 							</Link>
 						</li>
@@ -57,7 +60,9 @@ export function Header({ balance }: Props) {
 
 					<span className="font-inter font-normal">{formatbalance(balance)}</span>
 					<button>
-						<Image src="/icons/plus.svg" alt="" width={10} height={10} />
+						<Link href="/checkout">
+							<Image src="/icons/plus.svg" alt="" width={10} height={10} />
+						</Link>
 					</button>
 					{isAuthenticated ? null : (
 						<button

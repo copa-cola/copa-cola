@@ -2,27 +2,116 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["referentialIntegrity"]
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider             = "mysql"
+  url                  = env("DATABASE_URL")
+  referentialIntegrity = "prisma"
 }
 
+// Begin NEXT AUTH
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+// End NEXT AUTH
+
 model User {
-  id       String  @id @default(cuid())
-  email    String  @unique
-  password String
-  isGoogle Boolean @default(false)
-  avatar   String?
-  items    Item[]
+  id        String      @id @default(uuid())
+  email     String      @unique
+  // password String?  // ! Only Google Auth for MVP
+  // isGoogle Boolean @default(false)
+  inventory Inventory[]
+  balance   Int         @default(0)
+
+  // Begin NEXT AUTH
+  image         String?
+  emailVerified DateTime?
+  name          String?
+  accounts      Account[]
+  sessions      Session[]
+  // End NEXT AUTH
 }
 
 model Item {
-  id        String  @id
-  quantity  Int
-  User      User?   @relation(fields: [userId], references: [id])
-  userId    String?
-  isPackage Boolean @default(false)
+  id          String      @id @default(uuid())
+  name        String
+  rarity      Rarity
+  type        ItemType
+  inventoryId String?
+  inventories Inventory[]
+  bottomText  String
+  countryId   String?
+  number      Int?
+  country     Country?    @relation(fields: [countryId], references: [id])
+
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+  StoreItem StoreItem[]
+}
+
+model Inventory {
+  id        String  @id @default(uuid())
+  user      User    @relation(fields: [userId], references: [id])
+  userId    String
+  item      Item    @relation(fields: [itemId], references: [id])
+  quantity  Int     @default(1)
+  itemId    String
+  isSticked Boolean @default(false)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Country {
+  id       String @id @default(uuid())
+  name     String
+  initials String
+
+  Item Item[]
+}
+
+model StoreItem {
+  id String @id @default(uuid())
+
+  item     Item   @relation(fields: [itemId], references: [id])
+  itemId   String
+  quantity Int    @default(1)
+  price    Int    @default(0)
+}
+
+enum ItemType {
+  STICKER
+  STICKER_PACK
+}
+
+enum Rarity {
+  COMMON
+  LEGENDARY
 }

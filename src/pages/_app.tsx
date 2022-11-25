@@ -1,6 +1,7 @@
 import '../styles/globals.css'
 import type { AppProps } from 'next/app'
 import { Poppins } from '@next/font/google'
+import { SessionProvider } from 'next-auth/react'
 
 const poppins = Poppins({ weight: ['300', '400', '500', '700'], subsets: ['latin'] })
 
@@ -14,7 +15,9 @@ export default function App({ Component, pageProps }: AppProps) {
 					}
 				`}
 			</style>
-			<Component {...pageProps} />
+			<SessionProvider>
+				<Component {...pageProps} />
+			</SessionProvider>
 		</>
 	)
 }

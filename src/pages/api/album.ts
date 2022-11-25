@@ -1,7 +1,8 @@
-import { Country, Rarity } from '@prisma/client'
+import { Country, Rarity, User } from '@prisma/client'
 import { prisma } from '../../lib/prismadb'
 import ApiError from '../../utils/ApiError'
 import { apiHandler } from '../../utils/apiHandler'
+import { getUserInventory } from './inventory'
 
 export interface AlbumSticker {
 	id: string
@@ -14,10 +15,17 @@ export interface AlbumSticker {
 	rarity: Rarity
 }
 
-export default apiHandler(async (req, res) => {
-	if (!req.user) {
-		throw new ApiError('User not found.', 404)
-	}
+export interface GetAlbumProps {
+	user?: string | User
+}
+
+export const getAlbum = async ({ user: staleUser }: GetAlbumProps) => {
+	const user =
+		typeof staleUser === 'string'
+			? await prisma.user.findFirst({
+					where: { id: staleUser },
+			  })
+			: staleUser
 
 	const allStickers = await prisma.item.findMany({
 		where: {
@@ -31,14 +39,16 @@ export default apiHandler(async (req, res) => {
 		},
 	})
 
-	const inventory = await prisma.inventory.findMany({
-		where: {
-			userId: req.user.id,
-			item: {
-				type: 'STICKER',
-			},
-		},
-	})
+	const inventory = user
+		? await getUserInventory({
+				user,
+				where: {
+					item: {
+						type: 'STICKER',
+					},
+				},
+		  })
+		: []
 
 	const album = allStickers.map(sticker => {
 		const { name, rarity, country, bottomText, id, number } = sticker
@@ -61,6 +71,14 @@ export default apiHandler(async (req, res) => {
 
 		return albumSticker
 	})
+
+  return album
+}
+
+export default apiHandler(async (req, res) => {
+  const album = getAlbum({
+		user: req.user ?? '',
+  })
 
 	res.status(200).json(album)
 }, true)

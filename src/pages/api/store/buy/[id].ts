@@ -36,12 +36,20 @@ export const buyItem = async ({
 		throw new ApiError("You don't have enough balance to do that.", 404)
 	}
 
+	let newLoyaltyBalance = user.loyaltyBalance + storeItem.price
+	const loyaltyHit = newLoyaltyBalance >= 10000
+
+	if (loyaltyHit) {
+		newLoyaltyBalance -= 10000
+	}
+
 	await prisma.user.update({
 		where: {
 			id: user.id
 		},
 		data: {
-			balance: user.balance - storeItem.price
+			balance: user.balance - storeItem.price,
+			loyaltyBalance: newLoyaltyBalance
 		}
 	})
 
@@ -53,7 +61,10 @@ export const buyItem = async ({
 	})
 
 	if (checkItemExistsInInventory) {
-		const newQuantity = checkItemExistsInInventory.quantity + storeItem.quantity
+		const newQuantity =
+			checkItemExistsInInventory.quantity +
+			storeItem.quantity +
+			(loyaltyHit ? 5 : 0)
 
 		const inventory = await prisma.inventory.update({
 			where: {
@@ -64,17 +75,17 @@ export const buyItem = async ({
 			}
 		})
 
-		return inventory
+		return { inventory, loyaltyHit }
 	}
 
 	const inventory = await prisma.inventory.create({
 		data: {
 			itemId: storeItem.item.id,
 			userId: user.id,
-			quantity: storeItem.quantity
+			quantity: storeItem.quantity + (loyaltyHit ? 5 : 0)
 		}
 	})
-	return inventory
+	return { inventory, loyaltyHit }
 }
 
 export default apiHandler(async function handler(req, res) {

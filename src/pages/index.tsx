@@ -58,7 +58,7 @@ export default function _({ balance }: Props) {
 			<main>
 				<section className="max-w-[1220px] mx-auto mt-56">
 					<div className="flex space-x-16">
-						<div className="font-inter space-y-4 max-w-[570px] w-full">
+						<div className="font-inter space-y-4 max-w-[570px] w-full flex flex-col justify-center">
 							<h2 className="text-7xl font-bold leading-[93px]">Negocie as suas Figurinhas</h2>
 							<p className="text-3xl font-medium leading-[35px] w-[90%]">
 								Turistar é o seu album de figurinhas online, é possivel realizar operações

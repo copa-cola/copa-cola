@@ -16,7 +16,7 @@ export function Header({ balance }: Props) {
 		<header className="w-screen font-poppins shadow-md">
 			<div className="w-full h-8 bg-[#42D9D7]"></div>
 
-			<div className="flex py-1.5 items-center w-full font-semibold text-sm max-w-[1220px] mx-auto bg-[#FDFDFD]">
+			<div className="flex py-1.5 items-center w-full font-semibold text-sm w-[min(1220px,95%)] mx-auto bg-[#FDFDFD]">
 				<nav className="mx-auto text-[#4B3695]">
 					<ul className="flex">
 						<li>
@@ -35,6 +35,11 @@ export function Header({ balance }: Props) {
 						<li>
 							<Link href="/shop" className="hover:text-[#98C776] transition-colors py-3.5 px-5">
 								Loja
+							</Link>
+						</li>
+						<li>
+							<Link href="/buy" className="hover:text-[#98C776] transition-colors py-3.5 px-5">
+								Comprar
 							</Link>
 						</li>
 					</ul>

@@ -56,7 +56,7 @@ export default function _({ balance }: Props) {
 			<Header balance={balance} />
 
 			<main>
-				<section className="max-w-[1220px] mx-auto mt-56">
+				<section className="w-[min(1220px,95%)] mx-auto mt-56">
 					<div className="flex space-x-16">
 						<div className="font-inter space-y-4 max-w-[570px] w-full flex flex-col justify-center">
 							<h2 className="text-7xl font-bold leading-[93px]">Negocie as suas Figurinhas</h2>

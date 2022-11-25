@@ -15,7 +15,7 @@ export default function _({ countryName = 'brasil' }: Props) {
 			className="flex justify-center w-screen divide-x-2 font-poppins"
 			style={{ backgroundColor: color }}
 		>
-			<div className="grid grid-cols-2 place-items-center w-full max-w-[1920px] h-screen p-20">
+			<div className="grid grid-cols-2 place-items-center w-full max-w-[1920px] gap-6 min-h-screen p-20">
 				{/* figurinha superior esquerdo página da esquerda */}
 				<div className="w-[clamp(194px,100%,255px)] min-w-[194px]">
 					<Image
@@ -35,9 +35,9 @@ export default function _({ countryName = 'brasil' }: Props) {
 						>
 							{name}
 						</span>
-						<span className="uppercase font-medium text-2xl self-end -translate-y-7">{name}</span>
-						<span className="uppercase font-medium text-4xl -translate-y-12">{name}</span>
-						<span className="uppercase font-medium text-3xl self-end -translate-y-14">
+						<span className="uppercase font-medium text-2xl self-end -translate-y-5">{name}</span>
+						<span className="uppercase font-medium text-4xl -translate-y-8">{name}</span>
+						<span className="uppercase font-medium text-3xl self-end -translate-y-10">
 							{name}
 						</span>
 					</div>
@@ -68,7 +68,7 @@ export default function _({ countryName = 'brasil' }: Props) {
 				</div>
 			</div>
 
-			<div className="grid grid-cols-2 place-items-center w-full max-w-[1920px] h-screen p-20 text-white">
+			<div className="grid grid-cols-2 place-items-center w-full max-w-[1920px] gap-6 min-h-screen p-20 text-white">
 				{/* figurinha superior esquerdo página da direita */}
 				<div
 					className="w-[clamp(180px,_100%,_255px)] border-[12px] border-white place-self-center"

@@ -8,6 +8,7 @@ module.exports = {
 		extend: {
 			fontFamily: {
 				poppins: ['var(--poppins)', ...defaultTheme.fontFamily.sans],
+				inter: ['var(--inter)', ...defaultTheme.fontFamily.sans],
 			},
 		},
 	},

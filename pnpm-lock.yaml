@@ -12,6 +12,7 @@ specifiers:
   eslint-config-next: 13.0.4
   next: 13.0.4
   next-auth: ^4.17.0
+  next-seo: ^5.14.1
   postcss: ^8.4.19
   prisma: ^4.6.1
   react: 18.2.0
@@ -30,6 +31,7 @@ dependencies:
   eslint-config-next: 13.0.4_hsf322ms6xhhd4b5ne6lb74y4a
   next: 13.0.4_biqbaboplfbrettd7655fr4n2y
   next-auth: 4.17.0_dcors23iqtgxrhrwosgnnc4xji
+  next-seo: 5.14.1_dcors23iqtgxrhrwosgnnc4xji
   prisma: 4.6.1
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
@@ -1657,6 +1659,18 @@ packages:
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
       uuid: 8.3.2
+    dev: false
+
+  /next-seo/5.14.1_dcors23iqtgxrhrwosgnnc4xji:
+    resolution: {integrity: sha512-NiJeQbxYP3z+EMp52q8k3Q+OfX2+Yv2WehERDj98r2wjXxL+woKpRBdsSVYolTD0Hm8IWs42SzaISE93RoQdOw==}
+    peerDependencies:
+      next: ^8.1.1-canary.54 || >=9.0.0
+      react: '>=16.0.0'
+      react-dom: '>=16.0.0'
+    dependencies:
+      next: 13.0.4_biqbaboplfbrettd7655fr4n2y
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
     dev: false
 
   /next/13.0.4_biqbaboplfbrettd7655fr4n2y:

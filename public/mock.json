@@ -1,0 +1,41 @@
+{
+	"countries": [
+		{
+			"name": "brasil",
+			"abbreviation": "BRA",
+			"color": "#98c776"
+		}
+	],
+	"items": [
+		{
+			"name": "1 Pacote de Figurianha",
+			"price": 129.01,
+			"image": "/pacote-figurinha.png"
+		},
+		{
+			"name": "2 Pacote de Figurianha",
+			"price": 129.01,
+			"image": "/pacote-figurinha.png"
+		},
+		{
+			"name": "3 Pacote de Figurianha",
+			"price": 129.01,
+			"image": "/pacote-figurinha.png"
+		},
+		{
+			"name": "4 Pacote de Figurianha",
+			"price": 129.01,
+			"image": "/pacote-figurinha.png"
+		},
+		{
+			"name": "5 Pacote de Figurianha",
+			"price": 129.01,
+			"image": "/pacote-figurinha.png"
+		},
+		{
+			"name": "6 Pacote de Figurianha",
+			"price": 129.01,
+			"image": "/pacote-figurinha.png"
+		}
+	]
+}

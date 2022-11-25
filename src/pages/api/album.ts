@@ -8,7 +8,7 @@ export interface AlbumSticker {
 	number: number
 	name: string
 	bottomText: string
-	country: Country & { abbreviation: string }
+	country: Omit<Country, 'initials'> & { abbreviation: string }
 	userQuantity: number
 	isSticked: boolean
 	rarity: Rarity
@@ -58,7 +58,8 @@ export const getAlbum = async ({ user: staleUser }: GetAlbumProps) => {
 			name,
 			rarity,
 			country: {
-				...country!,
+        id: country!.id,
+        name: country!.name,
 				abbreviation: country!.initials,
 			},
 			bottomText,

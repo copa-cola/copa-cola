@@ -54,9 +54,14 @@ export function Header({ balance }: Props) {
 					<button>
 						<Image src="/icons/plus.svg" alt="" width={10} height={10} />
 					</button>
-					<button className="bg-[#3771B0] text-white rounded p-2" onClick={() => signIn('google')}>
-						Entrar | Cadastrar
-					</button>
+					{isAuthenticated ? null : (
+						<button
+							className="bg-[#3771B0] text-white rounded p-2"
+							onClick={() => signIn('google')}
+						>
+							Entrar | Cadastrar
+						</button>
+					)}
 				</div>
 			</div>
 		</header>

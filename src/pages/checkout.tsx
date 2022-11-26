@@ -21,7 +21,15 @@ export default function _({ balance }: Props) {
 
 	return (
 		<section className="max-w-[600px] mx-auto mt-40">
-			<form className="font-medium font-poppins">
+			<form
+				className="font-medium font-poppins"
+				method="POST"
+				action="/api/deposit"
+				onSubmit={e => {
+					e.preventDefault()
+					location.reload()
+				}}
+			>
 				<div className="grid grid-cols-2 gap-6">
 					<div>
 						<label htmlFor="name" className="block mb-2 text-sm font-medium text-gray-900">

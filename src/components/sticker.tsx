@@ -26,7 +26,7 @@ export function Sticker({ data }: Props) {
 
 			<div className="w-full h-full relative top-[calc(100%-200px-55px)] mx-auto">
 				<Image
-					src="/sticker/Obelisco.png"
+					src={data.image}
 					alt=""
 					fill
 					className="!w-[80%] !h-[170px] !relative mx-auto"

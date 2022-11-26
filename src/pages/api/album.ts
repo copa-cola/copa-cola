@@ -8,6 +8,7 @@ export interface AlbumSticker {
 	number: number
 	name: string
 	bottomText: string
+	image: string
 	country: Omit<Country, 'initials'> & { abbreviation: string }
 	userQuantity: number
 	isSticked: boolean
@@ -50,7 +51,7 @@ export const getAlbum = async ({ user: staleUser }: GetAlbumProps) => {
 		: []
 
 	const album = allStickers.map(sticker => {
-		const { name, rarity, country, bottomText, id, number } = sticker
+		const { name, rarity, country, bottomText, id, number, image } = sticker
 
 		const stickerInInventory = inventory.find(inventoryItem => inventoryItem.itemId === sticker.id)
 
@@ -58,8 +59,8 @@ export const getAlbum = async ({ user: staleUser }: GetAlbumProps) => {
 			name,
 			rarity,
 			country: {
-        id: country!.id,
-        name: country!.name,
+				id: country!.id,
+				name: country!.name,
 				abbreviation: country!.initials,
 			},
 			bottomText,
@@ -67,18 +68,19 @@ export const getAlbum = async ({ user: staleUser }: GetAlbumProps) => {
 			number: number!,
 			isSticked: !!stickerInInventory?.isSticked,
 			userQuantity: stickerInInventory?.quantity ?? 0,
+			image: image ? `/${image}` : '/sticker/Obelisco.png',
 		}
 
 		return albumSticker
 	})
 
-  return album
+	return album
 }
 
 export default apiHandler(async (req, res) => {
-  const album = await getAlbum({
+	const album = await getAlbum({
 		user: req.user ?? '',
-  })
+	})
 
 	res.status(200).json(album)
 }, true)

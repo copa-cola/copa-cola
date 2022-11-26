@@ -1,4 +1,4 @@
-import { User } from '@prisma/client'
+import { Item, ItemsOfferInTrades, ItemsWantsInTrades, Trade, User } from '@prisma/client'
 import { prisma } from '../../../lib/prismadb'
 import ApiError from '../../../utils/ApiError'
 import { apiHandler } from '../../../utils/apiHandler'
@@ -17,6 +17,17 @@ export interface CreateTradeParams {
 
 export interface GetTradesProps {
 	user?: string | User
+}
+
+export type TradeOffer = Trade & {
+	buyer: User | null
+	seller: User
+	itemsOffer: (ItemsOfferInTrades & {
+		item: Item
+	})[]
+	itemsWants: (ItemsWantsInTrades & {
+		item: Item
+	})[]
 }
 
 export const getTrades = async ({ user: staleUser }: GetTradesProps) => {
@@ -39,10 +50,12 @@ export const getTrades = async ({ user: staleUser }: GetTradesProps) => {
 					item: true,
 				},
 			},
+			buyer: true,
+			seller: true,
 		},
-    orderBy: {
-      closedAt: { sort: 'desc', nulls: 'first' }
-    }
+		orderBy: {
+			closedAt: { sort: 'desc', nulls: 'first' },
+		},
 	})
 
 	if (!user) {

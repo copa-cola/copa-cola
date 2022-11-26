@@ -73,6 +73,7 @@ model Item {
   countryId   String?
   number      Int?
   country     Country?    @relation(fields: [countryId], references: [id])
+  image       String?
 
   createdAt          DateTime             @default(now())
   updatedAt          DateTime             @updatedAt

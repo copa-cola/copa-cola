@@ -26,8 +26,11 @@ export default function _({ balance }: Props) {
 				method="POST"
 				action="/api/deposit"
 				onSubmit={e => {
-					e.preventDefault()
-					location.reload()
+					fetch('/api/deposit', {
+						method: 'POST',
+					}).then(res => {
+						location.reload()
+					})
 				}}
 			>
 				<div className="grid grid-cols-2 gap-6">

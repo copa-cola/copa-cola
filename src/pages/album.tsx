@@ -17,11 +17,9 @@ type Props = {
 
 export default function _({ countries }: Props) {
 	const [currentPage, setCurrentPage] = useState(0)
-
 	const pageData = useMemo(() => countries[currentPage], [countries, currentPage])
 
 	const { stickers } = pageData
-
 	const { name, abbreviation, flag, color } = useCountry(pageData.name.toLowerCase())
 
 	const handlePreviousPage = useCallback(() => {

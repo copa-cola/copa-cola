@@ -45,6 +45,14 @@ export function Header({ balance }: Props) {
 								Carrinho
 							</Link>
 						</li>
+						<li>
+							<Link
+								href="/exchange"
+								className="hover:text-[#98C776] transition-colors py-3.5 px-5"
+							>
+								Trocar
+							</Link>
+						</li>
 					</ul>
 				</nav>
 

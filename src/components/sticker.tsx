@@ -8,10 +8,21 @@ type Props = {
 
 export function Sticker({ data }: Props) {
 	const { flag } = useCountry(data.country.name.toLowerCase())
-	const { isSticked, name, bottomText, country, image } = data
+	const { isSticked, name, bottomText, image, id } = data
+
+	console.log(isSticked, '/api/stick/' + id)
 
 	return (
-		<div className="relative w-full h-full font-poppins font-medium">
+		<div
+			className="relative w-full h-full font-poppins font-medium"
+			onClick={() => {
+				fetch('/api/stick/' + id, {
+					method: 'POST',
+				}).then(res => {
+					location.reload()
+				})
+			}}
+		>
 			{isSticked ? (
 				<>
 					<Image src="/sticker/background.png" alt="" className="absolute" fill />
@@ -54,7 +65,7 @@ export function Sticker({ data }: Props) {
 				</>
 			) : (
 				<div
-					className="w-full h-full bg-black/50 flex flex-col space-y-4 text-center px-2 relative"
+					className="w-full h-full bg-black/50 flex flex-col space-y-4 text-center px-2 relative cursor-pointer"
 					style={{
 						background:
 							'linear-gradient(0deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.6) 40%, rgba(255,255,255,0) 100%)',

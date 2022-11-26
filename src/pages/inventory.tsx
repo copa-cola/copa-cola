@@ -22,22 +22,14 @@ export default function _({ inventory: staleInventory }: Props) {
 					className="w-[168px] h-[300px] border border-[#868686] rounded p-3 pr-0 text-[#727272]"
 					key={inventoryItem.id}
 				>
-					<div className="w-full h-full relative top-[calc(100%-200px-55px)] mx-auto">
-						<Image
-							src="/sticker/Obelisco.png"
-							alt=""
-							fill
-							className="!w-[80%] !h-[100px] !relative mx-auto"
-							style={{
-								filter: 'drop-shadow(3px 0 0 white) drop-shadow(0 3px 0 white) drop-shadow(-3px 0 0 white) drop-shadow(0 -3px 0 white)  drop-shadow(3px 0 0 #dc3256) drop-shadow(0 -2px 0 #dc3256)',
-							}}
-						/>
+					<div className="w-full h-full relative top-[calc(100%-200px-55px)] mx-auto flex flex-col items-center">
+						<Image src="/pacote-figurinha.png" alt="" width={121} height={151} unoptimized />
 
 						<div className="bg-white w-full text-center text-[#bd2a47] text-[16px] leading-tight font-semibold">
 							{inventoryItem.item.name}
 						</div>
 
-						<p>{inventoryItem.quantity}</p>
+						<p className="text-xl font-semibold mt-4">{inventoryItem.quantity}x</p>
 					</div>
 				</div>
 			))}

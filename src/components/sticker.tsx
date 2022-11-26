@@ -1,12 +1,14 @@
+import { Country, Item } from '@prisma/client'
 import Image from 'next/image'
 import { useCountry } from '../hooks/useCountry'
+import { AlbumSticker } from '../pages/api/album'
 
 type Props = {
-	countryName: string
+	data: AlbumSticker
 }
 
-export function Sticker({ countryName }: Props) {
-	const { flag, abbreviation } = useCountry(countryName)
+export function Sticker({ data }: Props) {
+	const { flag } = useCountry(data.country.name.toLowerCase())
 
 	return (
 		<div className="relative w-full h-full font-poppins font-medium">
@@ -18,7 +20,7 @@ export function Sticker({ countryName }: Props) {
 			</div>
 
 			<div className="absolute top-0 right-0 p-4 flex flex-col items-center">
-				<span className="text-white uppercase">{abbreviation}</span>
+				<span className="text-white uppercase">{data.country.abbreviation}</span>
 				<Image src={flag} alt="" width={60} height={45} className="border-[3px] border-white" />
 			</div>
 
@@ -34,11 +36,11 @@ export function Sticker({ countryName }: Props) {
 				/>
 
 				<div className="bg-white w-full text-center border-b-[6px] border-[#bd2a47] text-[#bd2a47] text-[32px] leading-tight font-semibold">
-					Maradona
+					{data.name}
 				</div>
 
 				<div className="bg-[#bd2a47] text-white text-2xl text-center w-[60%] mx-auto font-semibold leading-none pb-1">
-					1960
+					{data.bottomText}
 				</div>
 			</div>
 		</div>

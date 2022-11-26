@@ -17,7 +17,7 @@ function formatbalance(balance: number) {
 	return new Intl.NumberFormat('pt-br', {
 		style: 'currency',
 		currency: 'BRL',
-	}).format(balance)
+	}).format(balance / 100)
 }
 
 export { fluid, fluidText, formatbalance }

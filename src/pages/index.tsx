@@ -53,24 +53,20 @@ export default function _({ balance }: Props) {
 					},
 				]}
 			/>
-			<Header balance={balance} />
-
-			<main>
-				<section className="w-[min(1220px,95%)] mx-auto mt-56">
-					<div className="flex space-x-16">
-						<div className="font-inter space-y-4 max-w-[570px] w-full flex flex-col justify-center">
-							<h2 className="text-7xl font-bold leading-[93px]">Negocie as suas Figurinhas</h2>
-							<p className="text-3xl font-medium leading-[35px] w-[90%]">
-								Turistar é o seu album de figurinhas online, é possivel realizar operações
-								desde trocas até compras.
-							</p>
-						</div>
-						<Image src="/home-image.png" alt="" width={568} height={400} unoptimized />
+			<section className="w-[min(1220px,95%)] mx-auto mt-56">
+				<div className="flex space-x-16">
+					<div className="font-inter space-y-4 max-w-[570px] w-full flex flex-col justify-center">
+						<h2 className="text-7xl font-bold leading-[93px]">Negocie as suas Figurinhas</h2>
+						<p className="text-3xl font-medium leading-[35px] w-[90%]">
+							Turistar é o seu album de figurinhas online, é possivel realizar operações desde
+							trocas até compras.
+						</p>
 					</div>
-				</section>
+					<Image src="/home-image.png" alt="" width={568} height={400} unoptimized />
+				</div>
+			</section>
 
-				<Ad urlImage="/ad.png" className="mx-auto mt-12" />
-			</main>
+			<Ad urlImage="/ad.png" className="mx-auto mt-12" />
 		</>
 	)
 }

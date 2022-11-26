@@ -105,11 +105,12 @@ model Country {
 model StoreItem {
   id String @id @default(uuid())
 
-  name     String @default("")
-  item     Item   @relation(fields: [itemId], references: [id])
+  name     String  @default("")
+  image    String?
+  item     Item    @relation(fields: [itemId], references: [id])
   itemId   String
-  quantity Int    @default(1)
-  price    Int    @default(0)
+  quantity Int     @default(1)
+  price    Int     @default(0)
 }
 
 enum ItemType {

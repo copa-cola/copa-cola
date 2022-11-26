@@ -4,6 +4,16 @@
 			"name": "brasil",
 			"abbreviation": "BRA",
 			"color": "#98c776"
+		},
+		{
+			"name": "argentina",
+			"abbreviation": "ARG",
+			"color": "#99E5EF"
+		},
+		{
+			"name": "inglaterra",
+			"abbreviation": "ENG",
+			"color": "#dc3256"
 		}
 	],
 	"items": [

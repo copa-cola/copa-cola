@@ -42,7 +42,7 @@ export function Header({ balance }: Props) {
 								href="/checkout"
 								className="hover:text-[#98C776] transition-colors py-3.5 px-5"
 							>
-								Comprar
+								Carrinho
 							</Link>
 						</li>
 					</ul>

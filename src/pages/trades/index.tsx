@@ -1,9 +1,10 @@
-import { Item } from '@prisma/client'
 import { GetServerSideProps } from 'next'
 import Image from 'next/image'
-import { Header } from '../components/header'
-import { userFromReq } from '../utils/userFromReq'
-import { getTrades, TradeOffer } from './api/trades'
+import Link from 'next/link'
+import { useCallback } from 'react'
+import { useAuth } from '../../hooks/auth'
+import { userFromReq } from '../../utils/userFromReq'
+import { getTrades, TradeOffer } from '../api/trades'
 
 type Props = {
 	balance: number
@@ -11,17 +12,25 @@ type Props = {
 }
 
 export default function _({ balance, trades }: Props) {
+	const { user } = useAuth()
+
+	const handleSubmit = useCallback(async () => {
+		
+	}, []);
+
 	return (
 		<>
-			<section className="w-[min(1920px,95%)] mx-auto my-20 font-medium font-poppins divide-y-4 divide-white">
-				{trades.map(({ id, seller: { name: buyerName }, itemsOffer, itemsWants }) => (
+			<section className="flex flex-col w-[min(1920px,95%)] mx-auto my-20 font-medium font-poppins divide-y-4 divide-white">
+				<Link href="/trades/new" className="ml-auto">Nova troca</Link>
+				{trades.map(({ id, seller: { name: sellerName, id: sellerId }, itemsOffer, itemsWants, closedAt }) => (
 					<div
+						style={closedAt ? { opacity: 0.2 } : {}}
 						key={id}
 						className="flex justify-center items-center bg-gray-100 p-12 shadow-xl space-x-7 rounded"
 					>
 						<div>
 							<div className="mb-2">
-								<strong className="text-2xl font-semibold mr-1">{buyerName}</strong> quer
+								<strong className="text-2xl font-semibold mr-1">{sellerName}</strong> quer
 								trocar...
 							</div>
 
@@ -56,7 +65,10 @@ export default function _({ balance, trades }: Props) {
 						</div>
 
 						<div className="flex flex-col items-center space-y-4">
-							<button className="text-lg px-4 py-2 bg-gray-200 hover:bg-gray-300 active:bg-gray-400 transition-colors rounded">
+							<button
+								disabled={!!closedAt || sellerId === user?.id}
+								className="text-lg px-4 py-2 bg-gray-200 hover:bg-gray-300 active:bg-gray-400 transition-colors rounded"
+							>
 								Trocar
 							</button>
 							<Image src="/arrow-right.png" alt="" width={75} height={45} unoptimized />

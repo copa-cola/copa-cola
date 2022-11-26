@@ -33,7 +33,7 @@ export const buyItem = async ({
 	}
 
 	if (user.balance - storeItem.price < 0) {
-		throw new ApiError("You don't have enough balance to do that.", 404)
+		throw new ApiError("You don't have enough balance to do that.")
 	}
 
 	let newLoyaltyBalance = user.loyaltyBalance + storeItem.price

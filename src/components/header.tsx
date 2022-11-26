@@ -46,7 +46,7 @@ export function Header({ balance }: Props) {
 						</li>
 						<li>
 							<Link
-								href="/exchange"
+								href="/trades"
 								className="hover:text-[#98C776] transition-colors py-3.5 px-5"
 							>
 								Trocar

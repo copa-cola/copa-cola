@@ -24,7 +24,7 @@ export function Sticker({ data }: Props) {
 				<Image src={flag} alt="" width={60} height={45} className="border-[3px] border-white" />
 			</div>
 
-			<div className="w-full h-full relative top-[calc(100%-200px-55px)] mx-auto">
+			<div className="w-[110%] -left-[5%] h-full relative top-[calc(100%-200px-55px)] mx-auto">
 				<Image
 					src={data.image}
 					alt=""

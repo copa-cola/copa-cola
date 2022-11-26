@@ -1,7 +1,9 @@
 import { Inventory, Item as ItemType } from '@prisma/client'
 import { GetServerSidePropsContext } from 'next'
 import Image from 'next/image'
-import { useMemo } from 'react'
+import { useRouter } from 'next/router'
+import { useCallback, useMemo } from 'react'
+import { api } from '../services/api'
 import { userFromReq } from '../utils/userFromReq'
 import { getUserInventory } from './api/inventory'
 
@@ -13,6 +15,21 @@ export default function _({ inventory: staleInventory }: Props) {
 	const inventory = useMemo(
 		() => staleInventory.filter(inventoryItem => inventoryItem.quantity > 0),
 		[staleInventory]
+	)
+
+	const router = useRouter()
+
+	const handleUnpack = useCallback(
+		async (item: ItemType) => {
+			const response = await api.get<ItemType[]>(`/unpack`)
+
+			const text = response.data.map((item) => item.rarity === 'LEGENDARY' ? item.name.toUpperCase() : item.name).join('\n')
+
+			alert(`Parabéns! Você conseguiu:\n\n${text}`)
+
+			router.reload()
+		},
+		[router]
 	)
 
 	return (

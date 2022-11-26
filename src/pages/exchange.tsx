@@ -47,13 +47,7 @@ export default function _({ balance, trades }: Props) {
 										}}
 									>
 										{item.image ? (
-											<Image
-												src={item.image}
-												alt=""
-												width={100}
-												height={130}
-												unoptimized
-											/>
+											<Image src={`/${item.image}`} alt="" width={100} height={130} />
 										) : null}
 										{/* <p className="text-[12px] text-center self-end">{item.name}</p> */}
 									</div>
@@ -96,14 +90,14 @@ export default function _({ balance, trades }: Props) {
 									>
 										{item.image ? (
 											<Image
-												src={item.image}
+												src={`/${item.image}`}
 												alt=""
 												width={100}
 												height={130}
 												unoptimized
 											/>
-											) : null}
-											{/* <p className="text-[12px] text-center self-end">{item.name}</p> */}
+										) : null}
+										{/* <p className="text-[12px] text-center self-end">{item.name}</p> */}
 									</div>
 								))}
 							</div>

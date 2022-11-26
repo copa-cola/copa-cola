@@ -1,8 +1,10 @@
 import { GetServerSideProps } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import { useCallback } from 'react'
 import { useAuth } from '../../hooks/auth'
+import { api } from '../../services/api'
 import { userFromReq } from '../../utils/userFromReq'
 import { getTrades, TradeOffer } from '../api/trades'
 
@@ -14,7 +16,19 @@ type Props = {
 export default function _({ balance, trades }: Props) {
 	const { user } = useAuth()
 
-	const handleSubmit = useCallback(async () => {}, [])
+	const router = useRouter()
+
+	const handleSubmit = useCallback(
+		async (id: string) => {
+			try {
+				const response = await api.get(`/trades/accept/${id}`)
+				router.push('/inventory')
+			} catch {
+				alert('Você não tem figurinhas o suficiente no inventário.')
+			}
+		},
+		[router]
+	)
 
 	return (
 		<>
@@ -38,7 +52,7 @@ export default function _({ balance, trades }: Props) {
 							<div>
 								<div className="mb-2 flex items-center">
 									<Image
-										src={sellerImage}
+										src={sellerImage ?? '/mstile-150x150.png'}
 										alt=""
 										width={50}
 										height={50}
@@ -87,6 +101,7 @@ export default function _({ balance, trades }: Props) {
 
 							<div className="flex flex-col items-center space-y-4">
 								<button
+									onClick={() => handleSubmit(id)}
 									disabled={!!closedAt || sellerId === user?.id}
 									className="text-lg px-4 py-2 bg-gray-200 hover:bg-gray-300 active:bg-gray-400 transition-colors rounded"
 								>
@@ -121,15 +136,15 @@ export default function _({ balance, trades }: Props) {
 												boxShadow: 'inset 0 0 5px 2px rgba(0,0,0,.1)',
 											}}
 										>
-											{item.image ? (
-												<Image
-													src={`/${item.image}`}
-													alt=""
-													fill
-													className="object-cover"
-													unoptimized
-												/>
-											) : null}
+										{item.image ? (
+											<Image
+												src={`/${item.image}`}
+												alt=""
+												fill
+												className="object-cover"
+												unoptimized
+											/>
+										) : null}
 											{/* <p className="text-[12px] text-center self-end">{item.name}</p> */}
 										</div>
 									))}

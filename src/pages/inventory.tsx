@@ -1,7 +1,9 @@
 import { Inventory, Item as ItemType } from '@prisma/client'
 import { GetServerSidePropsContext } from 'next'
 import Image from 'next/image'
-import { useMemo } from 'react'
+import { useRouter } from 'next/router'
+import { useCallback, useMemo } from 'react'
+import { api } from '../services/api'
 import { userFromReq } from '../utils/userFromReq'
 import { getUserInventory } from './api/inventory'
 
@@ -15,10 +17,29 @@ export default function _({ inventory: staleInventory }: Props) {
 		[staleInventory]
 	)
 
+	const router = useRouter()
+
+	const handleUnpack = useCallback(
+		async (item: ItemType) => {
+			const response = await api.get<ItemType[]>(`/unpack`)
+
+			const text = response.data.map((item) => item.rarity === 'LEGENDARY' ? item.name.toUpperCase() : item.name).join('\n')
+
+			alert(`Parabéns! Você conseguiu:\n\n${text}`)
+
+			router.reload()
+		},
+		[router]
+	)
+
 	return (
 		<section className="grid grid-cols-4 font-poppins font-medium max-w-[760px] gap-y-6 mx-auto mt-10">
 			{inventory.map(inventoryItem => (
 				<div
+					style={inventoryItem.item.type === 'STICKER_PACK' ? { cursor: 'pointer' } : {}}
+					onClick={() =>
+						inventoryItem.item.type === 'STICKER_PACK' && handleUnpack(inventoryItem.item)
+					}
 					className="w-[168px] h-[300px] border border-[#868686] rounded p-3 pr-0 text-[#727272]"
 					key={inventoryItem.id}
 				>

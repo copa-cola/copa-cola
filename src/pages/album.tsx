@@ -34,14 +34,29 @@ export default function _({ countries }: Props) {
 
 	return (
 		<div className="flex flex-col" style={{ backgroundColor: color }}>
-			<div className="flex justify-center w-screen">
-				<button type="button" disabled={!currentPage} onClick={handlePreviousPage}>
+			<div className="flex justify-center items-center w-screen space-x-4 text-white">
+				<button
+					type="button"
+					disabled={!currentPage}
+					onClick={handlePreviousPage}
+					className="text-5xl font-semibold"
+					style={{
+						cursor: currentPage ? 'pointer' : 'not-allowed',
+						opacity: currentPage ? 1 : 0.5,
+					}}
+				>
 					{'<'}
 				</button>
+				<p className="text-2xl font-semibold translate-y-1">{currentPage}</p>
 				<button
 					type="button"
 					disabled={currentPage === countries.length - 1}
 					onClick={handleNextPage}
+					className="text-5xl font-semibold"
+					style={{
+						cursor: currentPage === countries.length - 1 ? 'not-allowed' : 'pointer',
+						opacity: currentPage === countries.length - 1 ? 0.5 : 1,
+					}}
 				>
 					{'>'}
 				</button>

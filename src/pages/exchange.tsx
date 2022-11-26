@@ -21,9 +21,7 @@ type Props = {
 export default function _({ balance, trades }: Props) {
 	return (
 		<>
-			<Header balance={balance} />
-
-			<main className="w-[min(1920px,95%)] mx-auto my-20 font-medium font-poppins divide-y-4 divide-white">
+			<section className="w-[min(1920px,95%)] mx-auto my-20 font-medium font-poppins divide-y-4 divide-white">
 				{trades.map(({ tradeId, traderName, wantItems, giveItems }) => (
 					<div
 						key={tradeId}
@@ -106,7 +104,7 @@ export default function _({ balance, trades }: Props) {
 						</div>
 					</div>
 				))}
-			</main>
+			</section>
 		</>
 	)
 }

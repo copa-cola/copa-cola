@@ -19,8 +19,15 @@ export default function _({ inventory: staleInventory }: Props) {
 		<section className="grid grid-cols-4 font-poppins font-medium max-w-[760px] gap-y-6 mx-auto mt-10">
 			{inventory.map(inventoryItem => (
 				<div
-					className="w-[168px] h-[300px] border border-[#868686] rounded p-3 pr-0 text-[#727272]"
+					className="w-[168px] h-[300px] border border-[#868686] rounded p-3 pr-0 text-[#727272] cursor-pointer"
 					key={inventoryItem.id}
+					onClick={() => {
+						fetch('/api/unpack', {
+							method: 'POST',
+						}).then(() => {
+							location.reload()
+						})
+					}}
 				>
 					<div className="w-full h-full relative top-[calc(100%-200px-55px)] mx-auto flex flex-col items-center">
 						<Image src="/pacote-figurinha.png" alt="" width={121} height={151} unoptimized />

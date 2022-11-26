@@ -104,7 +104,7 @@ export default function _({ balance, trades }: Props) {
 									{itemsWants.map(({ item, item: { rarity } }) => (
 										<div
 											key={item.id}
-											className="w-[121px] h-[151px] flex justify-center items-center rounded relativeFcons"
+											className="w-[121px] h-[151px] flex justify-center items-center rounded relative"
 											style={{
 												backgroundColor: rarity
 													? rarity === 'COMMON'

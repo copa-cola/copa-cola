@@ -1,4 +1,8 @@
+import { useRouter } from 'next/router'
+import React, { useCallback } from 'react'
 import { Header } from '../components/header'
+import { useAuth } from '../hooks/auth'
+import { api } from '../services/api'
 
 type Props = {
 	balance: number
@@ -19,18 +23,26 @@ export default function _({ balance }: Props) {
 		if (v.length == 11) e.value += '-'
 	}
 
+	const router = useRouter()
+	const { mutate } = useAuth()
+
+	const handlePost = useCallback(async () => {
+		await api.post('/deposit')
+
+
+		mutate()
+		router.push('/shop')
+	}, [mutate, router]);
+
 	return (
 		<section className="max-w-[600px] mx-auto mt-40">
 			<form
 				className="font-medium font-poppins"
 				method="POST"
 				action="/api/deposit"
-				onSubmit={e => {
-					fetch('/api/deposit', {
-						method: 'POST',
-					}).then(res => {
-						location.reload()
-					})
+				onSubmit={(e) => {
+					e.preventDefault()
+					handlePost()
 				}}
 			>
 				<div className="grid grid-cols-2 gap-6">
